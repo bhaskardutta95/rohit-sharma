@@ -64,16 +64,11 @@
             border-radius: 12px;
             overflow: hidden;
             box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
-            transition: box-shadow 0.25s ease, border-color 0.25s ease;
+            transition: box-shadow 0.25s ease;
         }
 
         .card:hover {
             box-shadow: 0 4px 18px rgba(31, 78, 120, 0.14);
-        }
-
-        .card.active {
-            border-color: #1F4E78;
-            box-shadow: 0 6px 20px rgba(31, 78, 120, 0.2);
         }
 
         .card-header {
@@ -81,24 +76,13 @@
             align-items: center;
             gap: 12px;
             padding: 14px 16px;
-            cursor: pointer;
-            user-select: none;
-            background: #f7f9fc;
-            transition: background 0.25s ease;
-        }
-
-        .card-header:hover {
-            background: #eef3f9;
-        }
-
-        .card.active .card-header {
             background: #1F4E78;
         }
 
         .card-number {
             min-width: 30px;
             height: 30px;
-            background: #1F4E78;
+            background: rgba(255, 255, 255, 0.2);
             color: white;
             border-radius: 50%;
             display: flex;
@@ -107,52 +91,14 @@
             font-weight: 700;
             font-size: 0.8em;
             flex-shrink: 0;
-            transition: background 0.25s, color 0.25s;
-        }
-
-        .card.active .card-number {
-            background: rgba(255, 255, 255, 0.25);
-            color: white;
         }
 
         .card-title {
             flex: 1;
             font-weight: 600;
             font-size: 0.9em;
-            color: #2c3e50;
-            line-height: 1.45;
-            transition: color 0.25s;
-        }
-
-        .card.active .card-title {
             color: white;
-        }
-
-        .card-chevron {
-            width: 18px;
-            height: 18px;
-            flex-shrink: 0;
-            color: #1F4E78;
-            transition: transform 0.3s ease, color 0.25s ease;
-        }
-
-        .card.active .card-chevron {
-            transform: rotate(180deg);
-            color: rgba(255, 255, 255, 0.85);
-        }
-
-        .card-body {
-            display: grid;
-            grid-template-rows: 0fr;
-            transition: grid-template-rows 0.35s ease;
-        }
-
-        .card.active .card-body {
-            grid-template-rows: 1fr;
-        }
-
-        .card-body-inner {
-            overflow: hidden;
+            line-height: 1.45;
         }
 
         .card-body-content {
@@ -160,7 +106,6 @@
             color: #4a5568;
             font-size: 0.88em;
             line-height: 1.75;
-            border-top: 1px solid #e8edf2;
             background: #ffffff;
         }
 
@@ -202,7 +147,6 @@
         @media print {
             body { background: white; padding: 0; }
             .container { box-shadow: none; border-radius: 0; }
-            .card-body { grid-template-rows: 1fr !important; }
         }
     </style>
 </head>
@@ -259,54 +203,17 @@
         ];
 
         const grid = document.getElementById('cardsGrid');
-        let activeCard = null;
-
-        const chevronSVG = `<svg class="card-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-            <polyline points="6 9 12 15 18 9"></polyline>
-        </svg>`;
 
         achievements.forEach((item, index) => {
             const card = document.createElement('div');
             card.className = 'card';
             card.innerHTML = `
-                <div class="card-header" role="button" aria-expanded="false" tabindex="0">
+                <div class="card-header">
                     <div class="card-number">${index + 1}</div>
                     <div class="card-title">${item.title}</div>
-                    ${chevronSVG}
                 </div>
-                <div class="card-body" role="region">
-                    <div class="card-body-inner">
-                        <div class="card-body-content">${item.details}</div>
-                    </div>
-                </div>
+                <div class="card-body-content">${item.details}</div>
             `;
-
-            const header = card.querySelector('.card-header');
-
-            const toggle = () => {
-                const isOpen = card.classList.contains('active');
-
-                if (activeCard && activeCard !== card) {
-                    activeCard.classList.remove('active');
-                    activeCard.querySelector('.card-header').setAttribute('aria-expanded', 'false');
-                }
-
-                if (isOpen) {
-                    card.classList.remove('active');
-                    header.setAttribute('aria-expanded', 'false');
-                    activeCard = null;
-                } else {
-                    card.classList.add('active');
-                    header.setAttribute('aria-expanded', 'true');
-                    activeCard = card;
-                }
-            };
-
-            header.addEventListener('click', toggle);
-            header.addEventListener('keydown', e => {
-                if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggle(); }
-            });
-
             grid.appendChild(card);
         });
     </script>
