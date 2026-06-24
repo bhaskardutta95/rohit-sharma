@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rohit Sharma - Achievements & Records</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #1F4E78 0%, #2E5C8A 100%);
+            color: white;
+            padding: 40px 20px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 3em;
+            margin-bottom: 10px;
+            font-weight: 700;
+            letter-spacing: 2px;
+        }
+
+        .header p {
+            font-size: 1.3em;
+            font-style: italic;
+            opacity: 0.9;
+            font-weight: 300;
+        }
+
+        .content {
+            padding: 40px;
+        }
+
+        .table-wrapper {
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 30px;
+        }
+
+        thead {
+            background: #1F4E78;
+            color: white;
+            position: sticky;
+            top: 0;
+        }
+
+        th {
+            padding: 15px;
+            text-align: left;
+            font-weight: 600;
+            font-size: 0.95em;
+            letter-spacing: 0.5px;
+        }
+
+        th:first-child {
+            width: 5%;
+            text-align: center;
+        }
+
+        th:nth-child(2) {
+            width: 35%;
+        }
+
+        th:nth-child(3) {
+            width: 60%;
+        }
+
+        tbody tr {
+            border-bottom: 1px solid #e0e0e0;
+            transition: background-color 0.2s ease;
+        }
+
+        tbody tr:hover {
+            background-color: #f5f5f5;
+        }
+
+        tbody tr:nth-child(odd) {
+            background-color: #fafafa;
+        }
+
+        td {
+            padding: 15px;
+            font-size: 0.95em;
+            line-height: 1.6;
+            color: #333;
+        }
+
+        td:first-child {
+            text-align: center;
+            font-weight: 600;
+            color: #1F4E78;
+            width: 5%;
+        }
+
+        td:nth-child(2) {
+            width: 35%;
+            font-weight: 500;
+            color: #2c3e50;
+        }
+
+        td:nth-child(3) {
+            width: 60%;
+            color: #555;
+        }
+
+        .footer {
+            background: #f9f9f9;
+            padding: 25px 40px;
+            border-top: 2px solid #e0e0e0;
+            text-align: center;
+            font-size: 0.9em;
+            color: #666;
+            line-height: 1.8;
+        }
+
+        .footer strong {
+            color: #1F4E78;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2em;
+            }
+
+            .header p {
+                font-size: 1em;
+            }
+
+            .content {
+                padding: 20px;
+            }
+
+            th, td {
+                padding: 10px 8px;
+                font-size: 0.85em;
+            }
+
+            th:first-child {
+                width: 8%;
+            }
+
+            th:nth-child(2) {
+                width: 30%;
+            }
+
+            th:nth-child(3) {
+                width: 62%;
+            }
+
+            td:first-child {
+                width: 8%;
+            }
+
+            td:nth-child(2) {
+                width: 30%;
+            }
+
+            td:nth-child(3) {
+                width: 62%;
+            }
+
+            .table-wrapper {
+                font-size: 0.85em;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .header h1 {
+                font-size: 1.5em;
+            }
+
+            .header p {
+                font-size: 0.9em;
+            }
+
+            .content {
+                padding: 15px;
+            }
+
+            table {
+                display: block;
+                overflow-x: auto;
+            }
+
+            thead, tbody, th, td, tr {
+                display: block;
+            }
+
+            thead tr {
+                display: grid;
+                grid-template-columns: 1fr;
+                gap: 0;
+            }
+
+            tbody tr {
+                display: grid;
+                grid-template-columns: 50px 1fr;
+                gap: 10px;
+                margin-bottom: 20px;
+                padding: 10px;
+                border: 1px solid #e0e0e0;
+                border-radius: 5px;
+            }
+
+            th {
+                padding: 10px 5px;
+            }
+
+            td {
+                padding: 5px;
+            }
+
+            td:first-child {
+                grid-column: 1 / -1;
+                text-align: center;
+                background: #1F4E78;
+                color: white;
+                margin: -10px -10px 10px -10px;
+                padding: 8px 5px;
+                font-weight: 700;
+            }
+
+            td:nth-child(2) {
+                grid-column: 1 / -1;
+                font-weight: 600;
+                color: #1F4E78;
+            }
+
+            td:nth-child(3)::before {
+                content: "Details: ";
+                font-weight: 600;
+                color: #666;
+            }
+        }
+
+        /* Animation */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .container {
+            animation: fadeIn 0.6s ease;
+        }
+
+        .highlight {
+            background: #fff3cd;
+            padding: 2px 4px;
+            border-radius: 3px;
+        }
+
+        /* Print Styles */
+        @media print {
+            body {
+                background: white;
+                padding: 0;
+            }
+
+            .container {
+                box-shadow: none;
+                border-radius: 0;
+            }
+
+            tbody tr {
+                page-break-inside: avoid;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>ROHIT SHARMA</h1>
+            <p>Achievements & Records (Fact-Verified)</p>
+        </div>
+
+        <div class="content">
+            <div class="table-wrapper">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>No.</th>
+                            <th>Achievement / Record</th>
+                            <th>Details & Explanation</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>1</td>
+                            <td>Highest ODI score: 264 vs Sri Lanka</td>
+                            <td>World record individual score in ODI cricket. Scored off 173 balls with 33 fours and 9 sixes at Eden Gardens, Kolkata on Nov 13, 2014.</td>
+                        </tr>
+                        <tr>
+                            <td>2</td>
+                            <td>Only player with 3 ODI double centuries</td>
+                            <td>Unique record - no other player has scored even 2 double centuries. Scores: 264, 209*, 208*</td>
+                        </tr>
+                        <tr>
+                            <td>3</td>
+                            <td>Most sixes in international cricket</td>
+                            <td>Surpassed Chris Gayle's 553 sixes. Demonstrates aggressive batting style and dominance across all formats.</td>
+                        </tr>
+                        <tr>
+                            <td>4</td>
+                            <td>Most centuries at Cricket World Cups: 7</td>
+                            <td>Surpassed Sachin Tendulkar's 6 centuries. Includes 5 in 2019 and additional centuries in 2015 & 2023 World Cups.</td>
+                        </tr>
+                        <tr>
+                            <td>5</td>
+                            <td>Joint most T20I centuries: 5</td>
+                            <td>Shares record with Glenn Maxwell and Suryakumar Yadav. Recently achieved oldest T20I centurion age 36 years 262 days.</td>
+                        </tr>
+                        <tr>
+                            <td>6</td>
+                            <td>Most runs in T20 Internationals</td>
+                            <td>4,231 runs across 159 T20I matches. All-time leading T20I run-scorer for India.</td>
+                        </tr>
+                        <tr>
+                            <td>7</td>
+                            <td>Won 2024 T20 World Cup as captain</td>
+                            <td>Defeated South Africa by 7 runs in final at Barbados. India's 2nd T20 World Cup title; first ICC trophy in 11 years.</td>
+                        </tr>
+                        <tr>
+                            <td>8</td>
+                            <td>Won 2025 ICC Champions Trophy as captain</td>
+                            <td>Successfully led India to championship victory. 2nd major ICC trophy as captain.</td>
+                        </tr>
+                        <tr>
+                            <td>9</td>
+                            <td>Hit 600 sixes in international cricket</td>
+                            <td>Achieved in June 2024 during match against Ireland. Milestone across all international formats (Tests, ODIs, T20Is).</td>
+                        </tr>
+                        <tr>
+                            <td>10</td>
+                            <td>Surpassed Chris Gayle's international sixes</td>
+                            <td>Broke Gayle's record of 553 sixes in October 2023 during 2023 Cricket World Cup match vs Afghanistan.</td>
+                        </tr>
+                        <tr>
+                            <td>11</td>
+                            <td>5 IPL titles as Mumbai Indians captain</td>
+                            <td>Won in 2013, 2015, 2017, 2019, 2020. Captained MI for 11 consecutive years (2013-2023).</td>
+                        </tr>
+                        <tr>
+                            <td>12</td>
+                            <td>Joint most successful IPL captain</td>
+                            <td>Shares record with MS Dhoni (5 titles each). Most successful captain in IPL history with Dhoni.</td>
+                        </tr>
+                        <tr>
+                            <td>13</td>
+                            <td>Fastest T20I century: 35 balls</td>
+                            <td>Scored 118 vs Sri Lanka in Indore (Dec 2017). Joint record with David Miller; strike rate of 337.14.</td>
+                        </tr>
+                        <tr>
+                            <td>14</td>
+                            <td>50+ wins as T20I captain</td>
+                            <td>Only cricketer to win 50+ T20I matches as captain. Demonstrates consistency in leadership.</td>
+                        </tr>
+                        <tr>
+                            <td>15</td>
+                            <td>2nd fastest to 11,000 ODI runs</td>
+                            <td>Reached milestone in 261 innings. Only Virat Kohli (222 innings) was faster. Achieved in Champions Trophy 2025 vs Bangladesh.</td>
+                        </tr>
+                        <tr>
+                            <td>16</td>
+                            <td>First Indian to 300 sixes in ODI format</td>
+                            <td>Achieved in October 2023 during India-Pakistan ODI match at Narendra Modi Stadium.</td>
+                        </tr>
+                        <tr>
+                            <td>17</td>
+                            <td>First Indian with 50 ODI sixes in calendar year</td>
+                            <td>Achieved in 2023 during match vs New Zealand. Only Indian to accomplish this milestone.</td>
+                        </tr>
+                        <tr>
+                            <td>18</td>
+                            <td>5 centuries in 2019 World Cup</td>
+                            <td>Broke Kumar Sangakkara's single-edition record of 4 centuries. Tournament's leading run-scorer with 648 runs.</td>
+                        </tr>
+                        <tr>
+                            <td>19</td>
+                            <td>Won multiple ICC tournaments</td>
+                            <td>Champions Trophy (2013), Asia Cup (2010, 2016, 2018, 2023), Nidahas Trophy (2018) - total 8 ICC tournament wins.</td>
+                        </tr>
+                        <tr>
+                            <td>20</td>
+                            <td>Member of 2007 T20 World Cup winning team</td>
+                            <td>Played as finisher; scored unbeaten 30 in final vs Pakistan. Part of India's first T20 World Cup triumph.</td>
+                        </tr>
+                        <tr>
+                            <td>21</td>
+                            <td>Only Indian to win 2 T20 World Cups</td>
+                            <td>Won as player in 2007; as captain in 2024. Unique achievement among Indian cricketers.</td>
+                        </tr>
+                        <tr>
+                            <td>22</td>
+                            <td>50 international centuries</td>
+                            <td>12 Tests, 33 ODIs, 5 T20Is. Reached milestone in October 2025 vs Australia. Among cricket's elite batsmen.</td>
+                        </tr>
+                        <tr>
+                            <td>23</td>
+                            <td>Padma Shri Award (2026)</td>
+                            <td>India's 4th highest civilian award. Recognition for outstanding achievements in sports.</td>
+                        </tr>
+                        <tr>
+                            <td>24</td>
+                            <td>Khel Ratna Award (2020)</td>
+                            <td>India's highest sports honor (renamed Major Dhyan Chand Khel Ratna). Recognition for lifetime sports excellence.</td>
+                        </tr>
+                        <tr>
+                            <td>25</td>
+                            <td>Arjuna Award (2015)</td>
+                            <td>India's 2nd highest sports award. Honors outstanding individual sporting achievement.</td>
+                        </tr>
+                        <tr>
+                            <td>26</td>
+                            <td>310 sixes in IPL</td>
+                            <td>Most sixes by any Indian batsman in IPL history. Signature pull shot and power-hitting ability.</td>
+                        </tr>
+                        <tr>
+                            <td>27</td>
+                            <td>7,183 runs for Mumbai Indians</td>
+                            <td>2nd highest MI run-scorer after Kieron Pollard. Demonstrates consistency across 18+ seasons.</td>
+                        </tr>
+                        <tr>
+                            <td>28</td>
+                            <td>Only 2 IPL centuries</td>
+                            <td>109* vs KKR (2012), 105* vs CSK (2024). Rare achievement; reflects focus on quick fifties over slow centuries.</td>
+                        </tr>
+                        <tr>
+                            <td>29</td>
+                            <td>3 ODI double centuries (unique)</td>
+                            <td>264, 209*, 208*. No other player has even 2 double centuries in ODI history.</td>
+                        </tr>
+                        <tr>
+                            <td>30</td>
+                            <td>Retired from T20Is (June 29, 2024)</td>
+                            <td>Announced retirement after winning 2024 T20 World Cup. Ended 17-year T20I career on high note.</td>
+                        </tr>
+                        <tr>
+                            <td>31</td>
+                            <td>Retired from Tests (May 7, 2025)</td>
+                            <td>Announced retirement ahead of England tour. Ended Test career after 67 matches with 4,301 runs.</td>
+                        </tr>
+                        <tr>
+                            <td>32</td>
+                            <td>3rd Indian captain to win major ICC event</td>
+                            <td>Joins Kapil Dev (1983 World Cup) and MS Dhoni (2007 T20 WC, 2011 WC, 2013 CT) as ICC trophy-winning Indian captains.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="footer">
+            <strong>Note:</strong> All facts verified from multiple independent sources including ESPN Cricinfo, Britannica, BCCI official records, and ICC official sources. Last updated: June 2026
+        </div>
+    </div>
+</body>
+</html>
