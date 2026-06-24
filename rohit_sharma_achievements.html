@@ -19,12 +19,13 @@
         }
 
         .container {
-            max-width: 1200px;
+            max-width: 1000px;
             margin: 0 auto;
             background: white;
-            border-radius: 10px;
+            border-radius: 16px;
             box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
             overflow: hidden;
+            animation: fadeIn 0.6s ease;
         }
 
         .header {
@@ -49,91 +50,126 @@
         }
 
         .content {
-            padding: 40px;
+            padding: 32px;
         }
 
-        .table-wrapper {
-            overflow-x: auto;
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 14px;
         }
 
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-bottom: 30px;
+        .card {
+            border: 1.5px solid #e0e8f0;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+            transition: box-shadow 0.25s ease, border-color 0.25s ease;
         }
 
-        thead {
+        .card:hover {
+            box-shadow: 0 4px 18px rgba(31, 78, 120, 0.14);
+        }
+
+        .card.active {
+            border-color: #1F4E78;
+            box-shadow: 0 6px 20px rgba(31, 78, 120, 0.2);
+        }
+
+        .card-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 14px 16px;
+            cursor: pointer;
+            user-select: none;
+            background: #f7f9fc;
+            transition: background 0.25s ease;
+        }
+
+        .card-header:hover {
+            background: #eef3f9;
+        }
+
+        .card.active .card-header {
+            background: #1F4E78;
+        }
+
+        .card-number {
+            min-width: 30px;
+            height: 30px;
             background: #1F4E78;
             color: white;
-            position: sticky;
-            top: 0;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 0.8em;
+            flex-shrink: 0;
+            transition: background 0.25s, color 0.25s;
         }
 
-        th {
-            padding: 15px;
-            text-align: left;
+        .card.active .card-number {
+            background: rgba(255, 255, 255, 0.25);
+            color: white;
+        }
+
+        .card-title {
+            flex: 1;
             font-weight: 600;
-            font-size: 0.95em;
-            letter-spacing: 0.5px;
-        }
-
-        th:first-child {
-            width: 5%;
-            text-align: center;
-        }
-
-        th:nth-child(2) {
-            width: 35%;
-        }
-
-        th:nth-child(3) {
-            width: 60%;
-        }
-
-        tbody tr {
-            border-bottom: 1px solid #e0e0e0;
-            transition: background-color 0.2s ease;
-        }
-
-        tbody tr:hover {
-            background-color: #f5f5f5;
-        }
-
-        tbody tr:nth-child(odd) {
-            background-color: #fafafa;
-        }
-
-        td {
-            padding: 15px;
-            font-size: 0.95em;
-            line-height: 1.6;
-            color: #333;
-        }
-
-        td:first-child {
-            text-align: center;
-            font-weight: 600;
-            color: #1F4E78;
-            width: 5%;
-        }
-
-        td:nth-child(2) {
-            width: 35%;
-            font-weight: 500;
+            font-size: 0.9em;
             color: #2c3e50;
+            line-height: 1.45;
+            transition: color 0.25s;
         }
 
-        td:nth-child(3) {
-            width: 60%;
-            color: #555;
+        .card.active .card-title {
+            color: white;
+        }
+
+        .card-chevron {
+            width: 18px;
+            height: 18px;
+            flex-shrink: 0;
+            color: #1F4E78;
+            transition: transform 0.3s ease, color 0.25s ease;
+        }
+
+        .card.active .card-chevron {
+            transform: rotate(180deg);
+            color: rgba(255, 255, 255, 0.85);
+        }
+
+        .card-body {
+            display: grid;
+            grid-template-rows: 0fr;
+            transition: grid-template-rows 0.35s ease;
+        }
+
+        .card.active .card-body {
+            grid-template-rows: 1fr;
+        }
+
+        .card-body-inner {
+            overflow: hidden;
+        }
+
+        .card-body-content {
+            padding: 14px 16px;
+            color: #4a5568;
+            font-size: 0.88em;
+            line-height: 1.75;
+            border-top: 1px solid #e8edf2;
+            background: #ffffff;
         }
 
         .footer {
             background: #f9f9f9;
-            padding: 25px 40px;
+            padding: 24px 40px;
             border-top: 2px solid #e0e0e0;
             text-align: center;
-            font-size: 0.9em;
+            font-size: 0.88em;
             color: #666;
             line-height: 1.8;
         }
@@ -142,160 +178,31 @@
             color: #1F4E78;
         }
 
-        /* Responsive Design */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+
         @media (max-width: 768px) {
-            .header h1 {
-                font-size: 2em;
-            }
-
-            .header p {
-                font-size: 1em;
-            }
-
-            .content {
-                padding: 20px;
-            }
-
-            th, td {
-                padding: 10px 8px;
-                font-size: 0.85em;
-            }
-
-            th:first-child {
-                width: 8%;
-            }
-
-            th:nth-child(2) {
-                width: 30%;
-            }
-
-            th:nth-child(3) {
-                width: 62%;
-            }
-
-            td:first-child {
-                width: 8%;
-            }
-
-            td:nth-child(2) {
-                width: 30%;
-            }
-
-            td:nth-child(3) {
-                width: 62%;
-            }
-
-            .table-wrapper {
-                font-size: 0.85em;
-            }
+            .header h1  { font-size: 2em; }
+            .header p   { font-size: 1em; }
+            .content    { padding: 20px; }
+            .cards-grid { grid-template-columns: 1fr; gap: 12px; }
         }
 
         @media (max-width: 480px) {
-            .header h1 {
-                font-size: 1.5em;
-            }
-
-            .header p {
-                font-size: 0.9em;
-            }
-
-            .content {
-                padding: 15px;
-            }
-
-            table {
-                display: block;
-                overflow-x: auto;
-            }
-
-            thead, tbody, th, td, tr {
-                display: block;
-            }
-
-            thead tr {
-                display: grid;
-                grid-template-columns: 1fr;
-                gap: 0;
-            }
-
-            tbody tr {
-                display: grid;
-                grid-template-columns: 50px 1fr;
-                gap: 10px;
-                margin-bottom: 20px;
-                padding: 10px;
-                border: 1px solid #e0e0e0;
-                border-radius: 5px;
-            }
-
-            th {
-                padding: 10px 5px;
-            }
-
-            td {
-                padding: 5px;
-            }
-
-            td:first-child {
-                grid-column: 1 / -1;
-                text-align: center;
-                background: #1F4E78;
-                color: white;
-                margin: -10px -10px 10px -10px;
-                padding: 8px 5px;
-                font-weight: 700;
-            }
-
-            td:nth-child(2) {
-                grid-column: 1 / -1;
-                font-weight: 600;
-                color: #1F4E78;
-            }
-
-            td:nth-child(3)::before {
-                content: "Details: ";
-                font-weight: 600;
-                color: #666;
-            }
+            body        { padding: 12px; }
+            .header     { padding: 28px 16px; }
+            .header h1  { font-size: 1.6em; letter-spacing: 1px; }
+            .header p   { font-size: 0.9em; }
+            .content    { padding: 14px; }
+            .card-title { font-size: 0.88em; }
         }
 
-        /* Animation */
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .container {
-            animation: fadeIn 0.6s ease;
-        }
-
-        .highlight {
-            background: #fff3cd;
-            padding: 2px 4px;
-            border-radius: 3px;
-        }
-
-        /* Print Styles */
         @media print {
-            body {
-                background: white;
-                padding: 0;
-            }
-
-            .container {
-                box-shadow: none;
-                border-radius: 0;
-            }
-
-            tbody tr {
-                page-break-inside: avoid;
-            }
+            body { background: white; padding: 0; }
+            .container { box-shadow: none; border-radius: 0; }
+            .card-body { grid-template-rows: 1fr !important; }
         }
     </style>
 </head>
@@ -303,188 +210,105 @@
     <div class="container">
         <div class="header">
             <h1>ROHIT SHARMA</h1>
-            <p>Achievements & Records (Fact-Verified)</p>
+            <p>Achievements &amp; Records (Fact-Verified)</p>
         </div>
 
         <div class="content">
-            <div class="table-wrapper">
-                <table>
-                    <thead>
-                        <tr>
-                            <th>No.</th>
-                            <th>Achievement / Record</th>
-                            <th>Details & Explanation</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>1</td>
-                            <td>Highest ODI score: 264 vs Sri Lanka</td>
-                            <td>World record individual score in ODI cricket. Scored off 173 balls with 33 fours and 9 sixes at Eden Gardens, Kolkata on Nov 13, 2014.</td>
-                        </tr>
-                        <tr>
-                            <td>2</td>
-                            <td>Only player with 3 ODI double centuries</td>
-                            <td>Unique record - no other player has scored even 2 double centuries. Scores: 264, 209*, 208*</td>
-                        </tr>
-                        <tr>
-                            <td>3</td>
-                            <td>Most sixes in international cricket</td>
-                            <td>Surpassed Chris Gayle's 553 sixes. Demonstrates aggressive batting style and dominance across all formats.</td>
-                        </tr>
-                        <tr>
-                            <td>4</td>
-                            <td>Most centuries at Cricket World Cups: 7</td>
-                            <td>Surpassed Sachin Tendulkar's 6 centuries. Includes 5 in 2019 and additional centuries in 2015 & 2023 World Cups.</td>
-                        </tr>
-                        <tr>
-                            <td>5</td>
-                            <td>Joint most T20I centuries: 5</td>
-                            <td>Shares record with Glenn Maxwell and Suryakumar Yadav. Recently achieved oldest T20I centurion age 36 years 262 days.</td>
-                        </tr>
-                        <tr>
-                            <td>6</td>
-                            <td>Most runs in T20 Internationals</td>
-                            <td>4,231 runs across 159 T20I matches. All-time leading T20I run-scorer for India.</td>
-                        </tr>
-                        <tr>
-                            <td>7</td>
-                            <td>Won 2024 T20 World Cup as captain</td>
-                            <td>Defeated South Africa by 7 runs in final at Barbados. India's 2nd T20 World Cup title; first ICC trophy in 11 years.</td>
-                        </tr>
-                        <tr>
-                            <td>8</td>
-                            <td>Won 2025 ICC Champions Trophy as captain</td>
-                            <td>Successfully led India to championship victory. 2nd major ICC trophy as captain.</td>
-                        </tr>
-                        <tr>
-                            <td>9</td>
-                            <td>Hit 600 sixes in international cricket</td>
-                            <td>Achieved in June 2024 during match against Ireland. Milestone across all international formats (Tests, ODIs, T20Is).</td>
-                        </tr>
-                        <tr>
-                            <td>10</td>
-                            <td>Surpassed Chris Gayle's international sixes</td>
-                            <td>Broke Gayle's record of 553 sixes in October 2023 during 2023 Cricket World Cup match vs Afghanistan.</td>
-                        </tr>
-                        <tr>
-                            <td>11</td>
-                            <td>5 IPL titles as Mumbai Indians captain</td>
-                            <td>Won in 2013, 2015, 2017, 2019, 2020. Captained MI for 11 consecutive years (2013-2023).</td>
-                        </tr>
-                        <tr>
-                            <td>12</td>
-                            <td>Joint most successful IPL captain</td>
-                            <td>Shares record with MS Dhoni (5 titles each). Most successful captain in IPL history with Dhoni.</td>
-                        </tr>
-                        <tr>
-                            <td>13</td>
-                            <td>Fastest T20I century: 35 balls</td>
-                            <td>Scored 118 vs Sri Lanka in Indore (Dec 2017). Joint record with David Miller; strike rate of 337.14.</td>
-                        </tr>
-                        <tr>
-                            <td>14</td>
-                            <td>50+ wins as T20I captain</td>
-                            <td>Only cricketer to win 50+ T20I matches as captain. Demonstrates consistency in leadership.</td>
-                        </tr>
-                        <tr>
-                            <td>15</td>
-                            <td>2nd fastest to 11,000 ODI runs</td>
-                            <td>Reached milestone in 261 innings. Only Virat Kohli (222 innings) was faster. Achieved in Champions Trophy 2025 vs Bangladesh.</td>
-                        </tr>
-                        <tr>
-                            <td>16</td>
-                            <td>First Indian to 300 sixes in ODI format</td>
-                            <td>Achieved in October 2023 during India-Pakistan ODI match at Narendra Modi Stadium.</td>
-                        </tr>
-                        <tr>
-                            <td>17</td>
-                            <td>First Indian with 50 ODI sixes in calendar year</td>
-                            <td>Achieved in 2023 during match vs New Zealand. Only Indian to accomplish this milestone.</td>
-                        </tr>
-                        <tr>
-                            <td>18</td>
-                            <td>5 centuries in 2019 World Cup</td>
-                            <td>Broke Kumar Sangakkara's single-edition record of 4 centuries. Tournament's leading run-scorer with 648 runs.</td>
-                        </tr>
-                        <tr>
-                            <td>19</td>
-                            <td>Won multiple ICC tournaments</td>
-                            <td>Champions Trophy (2013), Asia Cup (2010, 2016, 2018, 2023), Nidahas Trophy (2018) - total 8 ICC tournament wins.</td>
-                        </tr>
-                        <tr>
-                            <td>20</td>
-                            <td>Member of 2007 T20 World Cup winning team</td>
-                            <td>Played as finisher; scored unbeaten 30 in final vs Pakistan. Part of India's first T20 World Cup triumph.</td>
-                        </tr>
-                        <tr>
-                            <td>21</td>
-                            <td>Only Indian to win 2 T20 World Cups</td>
-                            <td>Won as player in 2007; as captain in 2024. Unique achievement among Indian cricketers.</td>
-                        </tr>
-                        <tr>
-                            <td>22</td>
-                            <td>50 international centuries</td>
-                            <td>12 Tests, 33 ODIs, 5 T20Is. Reached milestone in October 2025 vs Australia. Among cricket's elite batsmen.</td>
-                        </tr>
-                        <tr>
-                            <td>23</td>
-                            <td>Padma Shri Award (2026)</td>
-                            <td>India's 4th highest civilian award. Recognition for outstanding achievements in sports.</td>
-                        </tr>
-                        <tr>
-                            <td>24</td>
-                            <td>Khel Ratna Award (2020)</td>
-                            <td>India's highest sports honor (renamed Major Dhyan Chand Khel Ratna). Recognition for lifetime sports excellence.</td>
-                        </tr>
-                        <tr>
-                            <td>25</td>
-                            <td>Arjuna Award (2015)</td>
-                            <td>India's 2nd highest sports award. Honors outstanding individual sporting achievement.</td>
-                        </tr>
-                        <tr>
-                            <td>26</td>
-                            <td>310 sixes in IPL</td>
-                            <td>Most sixes by any Indian batsman in IPL history. Signature pull shot and power-hitting ability.</td>
-                        </tr>
-                        <tr>
-                            <td>27</td>
-                            <td>7,183 runs for Mumbai Indians</td>
-                            <td>2nd highest MI run-scorer after Kieron Pollard. Demonstrates consistency across 18+ seasons.</td>
-                        </tr>
-                        <tr>
-                            <td>28</td>
-                            <td>Only 2 IPL centuries</td>
-                            <td>109* vs KKR (2012), 105* vs CSK (2024). Rare achievement; reflects focus on quick fifties over slow centuries.</td>
-                        </tr>
-                        <tr>
-                            <td>29</td>
-                            <td>3 ODI double centuries (unique)</td>
-                            <td>264, 209*, 208*. No other player has even 2 double centuries in ODI history.</td>
-                        </tr>
-                        <tr>
-                            <td>30</td>
-                            <td>Retired from T20Is (June 29, 2024)</td>
-                            <td>Announced retirement after winning 2024 T20 World Cup. Ended 17-year T20I career on high note.</td>
-                        </tr>
-                        <tr>
-                            <td>31</td>
-                            <td>Retired from Tests (May 7, 2025)</td>
-                            <td>Announced retirement ahead of England tour. Ended Test career after 67 matches with 4,301 runs.</td>
-                        </tr>
-                        <tr>
-                            <td>32</td>
-                            <td>3rd Indian captain to win major ICC event</td>
-                            <td>Joins Kapil Dev (1983 World Cup) and MS Dhoni (2007 T20 WC, 2011 WC, 2013 CT) as ICC trophy-winning Indian captains.</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
+            <div class="cards-grid" id="cardsGrid"></div>
         </div>
 
         <div class="footer">
             <strong>Note:</strong> All facts verified from multiple independent sources including ESPN Cricinfo, Britannica, BCCI official records, and ICC official sources. Last updated: June 2026
         </div>
     </div>
+
+    <script>
+        const achievements = [
+            { title: "Highest ODI score: 264 vs Sri Lanka",            details: "World record individual score in ODI cricket. Scored off 173 balls with 33 fours and 9 sixes at Eden Gardens, Kolkata on Nov 13, 2014." },
+            { title: "Only player with 3 ODI double centuries",         details: "Unique record — no other player has scored even 2 double centuries. Scores: 264, 209*, 208*." },
+            { title: "Most sixes in international cricket",             details: "Surpassed Chris Gayle's 553 sixes. Demonstrates aggressive batting style and dominance across all formats." },
+            { title: "Most centuries at Cricket World Cups: 7",         details: "Surpassed Sachin Tendulkar's 6 centuries. Includes 5 in 2019 and additional centuries in 2015 & 2023 World Cups." },
+            { title: "Joint most T20I centuries: 5",                    details: "Shares record with Glenn Maxwell and Suryakumar Yadav. Recently achieved oldest T20I centurion at age 36 years 262 days." },
+            { title: "Most runs in T20 Internationals",                 details: "4,231 runs across 159 T20I matches. All-time leading T20I run-scorer for India." },
+            { title: "Won 2024 T20 World Cup as captain",               details: "Defeated South Africa by 7 runs in the final at Barbados. India's 2nd T20 World Cup title; first ICC trophy in 11 years." },
+            { title: "Won 2025 ICC Champions Trophy as captain",        details: "Successfully led India to championship victory. 2nd major ICC trophy as captain." },
+            { title: "Hit 600 sixes in international cricket",          details: "Achieved in June 2024 during the match against Ireland. Milestone across all international formats (Tests, ODIs, T20Is)." },
+            { title: "Surpassed Chris Gayle's international sixes",     details: "Broke Gayle's record of 553 sixes in October 2023 during the 2023 Cricket World Cup match vs Afghanistan." },
+            { title: "5 IPL titles as Mumbai Indians captain",          details: "Won in 2013, 2015, 2017, 2019, 2020. Captained MI for 11 consecutive years (2013–2023)." },
+            { title: "Joint most successful IPL captain",               details: "Shares record with MS Dhoni (5 titles each). Most successful captain in IPL history alongside Dhoni." },
+            { title: "Fastest T20I century: 35 balls",                  details: "Scored 118 vs Sri Lanka in Indore (Dec 2017). Joint record with David Miller; strike rate of 337.14." },
+            { title: "50+ wins as T20I captain",                        details: "Only cricketer to win 50+ T20I matches as captain. Demonstrates unmatched consistency in leadership." },
+            { title: "2nd fastest to 11,000 ODI runs",                  details: "Reached milestone in 261 innings. Only Virat Kohli (222 innings) was faster. Achieved in Champions Trophy 2025 vs Bangladesh." },
+            { title: "First Indian to 300 sixes in ODI format",         details: "Achieved in October 2023 during the India-Pakistan ODI match at Narendra Modi Stadium." },
+            { title: "First Indian with 50 ODI sixes in calendar year", details: "Achieved in 2023 during the match vs New Zealand. Only Indian to accomplish this milestone." },
+            { title: "5 centuries in 2019 World Cup",                   details: "Broke Kumar Sangakkara's single-edition record of 4 centuries. Tournament's leading run-scorer with 648 runs." },
+            { title: "Won multiple ICC tournaments",                    details: "Champions Trophy (2013), Asia Cup (2010, 2016, 2018, 2023), Nidahas Trophy (2018) — total 8 ICC tournament wins." },
+            { title: "Member of 2007 T20 World Cup winning team",       details: "Played as finisher; scored unbeaten 30 in the final vs Pakistan. Part of India's first T20 World Cup triumph." },
+            { title: "Only Indian to win 2 T20 World Cups",             details: "Won as player in 2007 and as captain in 2024. Unique achievement among Indian cricketers." },
+            { title: "50 international centuries",                      details: "12 Tests, 33 ODIs, 5 T20Is. Reached milestone in October 2025 vs Australia. Among cricket's elite batsmen." },
+            { title: "Padma Shri Award (2026)",                         details: "India's 4th highest civilian award. Recognition for outstanding achievements in sports." },
+            { title: "Khel Ratna Award (2020)",                         details: "India's highest sports honor (renamed Major Dhyan Chand Khel Ratna). Recognition for lifetime sports excellence." },
+            { title: "Arjuna Award (2015)",                             details: "India's 2nd highest sports award. Honors outstanding individual sporting achievement." },
+            { title: "310 sixes in IPL",                                details: "Most sixes by any Indian batsman in IPL history. Defined by his signature pull shot and power-hitting ability." },
+            { title: "7,183 runs for Mumbai Indians",                   details: "2nd highest MI run-scorer after Kieron Pollard. Demonstrates consistency across 18+ seasons." },
+            { title: "Only 2 IPL centuries",                            details: "109* vs KKR (2012), 105* vs CSK (2024). Rare achievement; reflects focus on quick fifties over slow centuries." },
+            { title: "3 ODI double centuries (unique)",                 details: "264, 209*, 208*. No other player has even 2 double centuries in ODI history." },
+            { title: "Retired from T20Is (June 29, 2024)",              details: "Announced retirement after winning the 2024 T20 World Cup. Ended a 17-year T20I career on a high note." },
+            { title: "Retired from Tests (May 7, 2025)",                details: "Announced retirement ahead of the England tour. Ended Test career after 67 matches with 4,301 runs." },
+            { title: "3rd Indian captain to win major ICC event",       details: "Joins Kapil Dev (1983 World Cup) and MS Dhoni (2007 T20 WC, 2011 WC, 2013 CT) as ICC trophy-winning Indian captains." }
+        ];
+
+        const grid = document.getElementById('cardsGrid');
+        let activeCard = null;
+
+        const chevronSVG = `<svg class="card-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <polyline points="6 9 12 15 18 9"></polyline>
+        </svg>`;
+
+        achievements.forEach((item, index) => {
+            const card = document.createElement('div');
+            card.className = 'card';
+            card.innerHTML = `
+                <div class="card-header" role="button" aria-expanded="false" tabindex="0">
+                    <div class="card-number">${index + 1}</div>
+                    <div class="card-title">${item.title}</div>
+                    ${chevronSVG}
+                </div>
+                <div class="card-body" role="region">
+                    <div class="card-body-inner">
+                        <div class="card-body-content">${item.details}</div>
+                    </div>
+                </div>
+            `;
+
+            const header = card.querySelector('.card-header');
+
+            const toggle = () => {
+                const isOpen = card.classList.contains('active');
+
+                if (activeCard && activeCard !== card) {
+                    activeCard.classList.remove('active');
+                    activeCard.querySelector('.card-header').setAttribute('aria-expanded', 'false');
+                }
+
+                if (isOpen) {
+                    card.classList.remove('active');
+                    header.setAttribute('aria-expanded', 'false');
+                    activeCard = null;
+                } else {
+                    card.classList.add('active');
+                    header.setAttribute('aria-expanded', 'true');
+                    activeCard = card;
+                }
+            };
+
+            header.addEventListener('click', toggle);
+            header.addEventListener('keydown', e => {
+                if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggle(); }
+            });
+
+            grid.appendChild(card);
+        });
+    </script>
 </body>
 </html>
